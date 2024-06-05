@@ -1,45 +1,50 @@
 package com.example.apfastspringboot.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "vehicle")
 public class Vehicle {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "vehicle_id", length = 32)
+    private String vehicleId;
 
-    private String name;
-    private String model;
+    @Column(name = "vehicle_name", nullable = false, length = 64)
+    private String vehicleName;
+
+    @Column(name = "vehicle_model", nullable = false, length = 10)
+    private String vehicleModel;
+
+    @Column(name = "year_of_manufacture", nullable = false)
     private int yearOfManufacture;
-    private String color;
-    // getters and setters
 
+    @Column(name = "vehicle_color", length = 16)
+    private String vehicleColor;
 
-    public Long getId() {
-        return id;
+    // Getters and Setters
+    public String getVehicleId() {
+        return vehicleId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setVehicleId(String vehicleId) {
+        this.vehicleId = vehicleId;
     }
 
-    public String getName() {
-        return name;
+    public String getVehicleName() {
+        return vehicleName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setVehicleName(String vehicleName) {
+        this.vehicleName = vehicleName;
     }
 
-    public String getModel() {
-        return model;
+    public String getVehicleModel() {
+        return vehicleModel;
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public void setVehicleModel(String vehicleModel) {
+        this.vehicleModel = vehicleModel;
     }
 
     public int getYearOfManufacture() {
@@ -50,11 +55,11 @@ public class Vehicle {
         this.yearOfManufacture = yearOfManufacture;
     }
 
-    public String getColor() {
-        return color;
+    public String getVehicleColor() {
+        return vehicleColor;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setVehicleColor(String vehicleColor) {
+        this.vehicleColor = vehicleColor;
     }
 }
