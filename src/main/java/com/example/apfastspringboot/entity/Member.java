@@ -1,30 +1,23 @@
 package com.example.apfastspringboot.entity;
 
-import jakarta.persistence.*;
-import java.util.Set;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
-@Table(name = "members")
 public class Member {
 
     @Id
-    @Column(name = "user_id", length = 32)
     private String userId;
-
-    @Column(name = "password", nullable = false, length = 68)
     private String password;
+    private String is_active;
 
-    @Column(name = "is_active", nullable = false)
-    private boolean isActive;
-
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Role> roles;
-
-    public String getUserId() {
+    public String getUser_id() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUser_id(String userId) {
         this.userId = userId;
     }
 
@@ -36,19 +29,11 @@ public class Member {
         this.password = password;
     }
 
-    public boolean isActive() {
-        return isActive;
+    public String getIs_active() {
+        return is_active;
     }
 
-    public void setActive(boolean isActive) {
-        this.isActive = isActive;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setIs_active(String is_active) {
+        this.is_active = is_active;
     }
 }

@@ -1,55 +1,47 @@
 package com.example.apfastspringboot.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import java.util.List;
-import java.util.Optional;
+
 import com.example.apfastspringboot.entity.Member;
 import com.example.apfastspringboot.service.MemberService;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-@RestController
-@RequestMapping("/api/members")
+import java.util.Optional;
+
+@Controller
 public class MemberController {
 
     @Autowired
     private MemberService memberService;
 
-    @GetMapping
-    public List<Member> getAllMembers() {
-        return memberService.findAll();
+    @GetMapping("/")
+    public String index(Model model) {
+        return "index";
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Member> getMemberById(@PathVariable String id) {
-        Optional<Member> member = memberService.findById(id);
-        return member.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-    }
-
-    @PostMapping
-    public Member createMember(@RequestBody Member member) {
-        return memberService.save(member);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Member> updateMember(@PathVariable String id, @RequestBody Member memberDetails) {
-        Optional<Member> member = memberService.findById(id);
-        if (member.isPresent()) {
-            Member updatedMember = member.get();
-            updatedMember.setPassword(memberDetails.getPassword());
-            updatedMember.setActive(memberDetails.isActive());
-            updatedMember.setRoles(memberDetails.getRoles());
-            return ResponseEntity.ok(memberService.save(updatedMember));
-        } else {
-            return ResponseEntity.notFound().build();
+    @PostMapping("/login")
+    public String login(Model model, @RequestParam String userId, @RequestParam String password, HttpSession session) {
+        Optional<Member> member = memberService.findByUserId(userId);
+        if (member.isPresent() && member.get().getPassword().equals(password)) {
+            session.setAttribute("member", member.get());
+            return "redirect:/vehicles";
+        }else {
+            model.addAttribute("error", "Invalid username or password");
+            return "index";
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteMember(@PathVariable String id) {
-        memberService.deleteById(id);
-        return ResponseEntity.noContent().build();
+
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
     }
+
 }
-
-

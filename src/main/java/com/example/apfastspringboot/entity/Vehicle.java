@@ -1,65 +1,59 @@
 package com.example.apfastspringboot.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
-@Table(name = "vehicle")
 public class Vehicle {
 
     @Id
-    @Column(name = "vehicle_id", length = 32)
-    private String vehicleId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int vehicle_id;
 
-    @Column(name = "vehicle_name", nullable = false, length = 64)
-    private String vehicleName;
+    private String vehicle_name;
+    private String vehicle_model;
+    private String vehicle_color;
+    private int year_of_manufacture;
 
-    @Column(name = "vehicle_model", nullable = false, length = 10)
-    private String vehicleModel;
-
-    @Column(name = "year_of_manufacture", nullable = false)
-    private int yearOfManufacture;
-
-    @Column(name = "vehicle_color", length = 16)
-    private String vehicleColor;
-
-    // Getters and Setters
-    public String getVehicleId() {
-        return vehicleId;
+    public int getVehicle_id() {
+        return vehicle_id;
     }
 
-    public void setVehicleId(String vehicleId) {
-        this.vehicleId = vehicleId;
+    public void setVehicle_id(int vehicle_id) {
+        this.vehicle_id = vehicle_id;
     }
 
-    public String getVehicleName() {
-        return vehicleName;
+    public String getVehicle_name() {
+        return vehicle_name;
     }
 
-    public void setVehicleName(String vehicleName) {
-        this.vehicleName = vehicleName;
+    public void setVehicle_name(String vehicle_name) {
+        this.vehicle_name = vehicle_name;
     }
 
-    public String getVehicleModel() {
-        return vehicleModel;
+    public String getVehicle_model() {
+        return vehicle_model;
     }
 
-    public void setVehicleModel(String vehicleModel) {
-        this.vehicleModel = vehicleModel;
+    public void setVehicle_model(String vehicle_model) {
+        this.vehicle_model = vehicle_model;
     }
 
-    public int getYearOfManufacture() {
-        return yearOfManufacture;
+    public String getVehicle_color() {
+        return vehicle_color;
     }
 
-    public void setYearOfManufacture(int yearOfManufacture) {
-        this.yearOfManufacture = yearOfManufacture;
+    public void setVehicle_color(String vehicle_color) {
+        this.vehicle_color = vehicle_color;
     }
 
-    public String getVehicleColor() {
-        return vehicleColor;
+    public int getYear_of_manufacture() {
+        return year_of_manufacture;
     }
 
-    public void setVehicleColor(String vehicleColor) {
-        this.vehicleColor = vehicleColor;
+    public void setYear_of_manufacture(int year_of_manufacture) {
+        this.year_of_manufacture = year_of_manufacture;
     }
 }

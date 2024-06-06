@@ -1,32 +1,29 @@
 package com.example.apfastspringboot.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.Optional;
 import com.example.apfastspringboot.entity.Member;
 import com.example.apfastspringboot.repository.MemberRepository;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class MemberService {
-
     @Autowired
     private MemberRepository memberRepository;
 
-    public List<Member> findAll() {
-        return memberRepository.findAll();
+
+    public Optional<Member> findByUserId(String id) {
+        return memberRepository.findByUserId(id);
     }
 
-    public Optional<Member> findById(String userId) {
-        return memberRepository.findById(userId);
+    public boolean checkSession(HttpSession session) {
+        if (session.getAttribute("member") == null) {
+            return false;
+        }
+        return true;
     }
 
-    public Member save(Member member) {
-        return memberRepository.save(member);
-    }
 
-    public void deleteById(String userId) {
-        memberRepository.deleteById(userId);
-    }
 }
-
